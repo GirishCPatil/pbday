@@ -11,13 +11,32 @@ import Scene5 from './components/Scene5';
 import SecretScene from './components/SecretScene';
 import AnimatedCursor from './components/common/AnimatedCursor';
 import AudioPlayer from './components/AudioPlayer';
+import ApiKeyPrompt from './components/ApiKeyPrompt';
+
+// Add global declaration for aistudio
+// FIX: Defined an interface for AIStudio to avoid conflicting global declarations.
+interface AIStudio {
+    hasSelectedApiKey: () => Promise<boolean>;
+    openSelectKey: () => Promise<void>;
+}
+
+declare global {
+    interface Window {
+        aistudio?: AIStudio;
+    }
+}
+
 
 const App: React.FC = () => {
+  const [hasApiKey, setHasApiKey] = useState(false);
   const [scene, setScene] = useState<Scene>(Scene.Intro);
   const [sceneHistory, setSceneHistory] = useState<Scene[]>([]);
   const [stylizedImageUrl, setStylizedImageUrl] = useState<string | null>(null);
   const [playMusic, setPlayMusic] = useState(false);
 
+  const handleKeySelected = useCallback(() => {
+    setHasApiKey(true);
+  }, []);
 
   const goToScene = useCallback((targetScene: Scene) => {
     // Start music after the intro scene completes
@@ -71,6 +90,15 @@ const App: React.FC = () => {
         return <SceneIntro onNext={() => goToScene(Scene.Landing)} />;
     }
   };
+  
+  if (!hasApiKey) {
+    return (
+        <>
+            <AnimatedCursor />
+            <ApiKeyPrompt onKeySelected={handleKeySelected} />
+        </>
+    );
+  }
   
   const backgroundClass = scene === Scene.Intro || scene === Scene.Closing || scene === Scene.Secret
     ? 'bg-gradient-to-b from-[#1e293b] to-[#475569]'

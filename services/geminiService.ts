@@ -1,5 +1,17 @@
 import { GoogleGenAI, Modality } from "@google/genai";
 
+// Centralized function to get the AI client, with robust error handling.
+function getAiClient() {
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    // This error will be thrown if the API key prompt flow fails for some reason.
+    console.error("API_KEY environment variable not set. Please select a key in the prompt to use the application.");
+    throw new Error("Authentication Error: API Key is not configured. Please refresh and select an API key.");
+  }
+  return new GoogleGenAI({ apiKey });
+}
+
+
 // Converts a File object to a GoogleGenerativeAI.Part object.
 async function fileToGenerativePart(file: File) {
   const base64EncodedDataPromise = new Promise<string>((resolve) => {
@@ -58,7 +70,7 @@ async function retryWithBackoff<T>(
 
 export const stylizeImages = async (imageFile: File): Promise<string[] | null> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+    const ai = getAiClient();
     const imagePart = await fileToGenerativePart(imageFile);
 
     const basePrompt = `Your primary task is to create an **identity-preserving birthday portrait**. Facial accuracy is the most critical requirement.
@@ -131,7 +143,7 @@ export const createGroupCelebrationImages = async (
   pratikshaImageUrl: string
 ): Promise<string[] | null> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+    const ai = getAiClient();
     const girishImagePart = await fileToGenerativePart(girishImage);
     const vaishnaviImagePart = await fileToGenerativePart(vaishnaviImage);
     const pratikshaImagePart = dataUrlToGenerativePart(pratikshaImageUrl);
@@ -209,7 +221,7 @@ Seamlessly integrate these three individuals into a single, cohesive birthday ce
 export const dressUpImage = async (personImageUrl: string, dressFile: File): Promise<string | null> => {
   try {
      const apiCall = async () => {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+        const ai = getAiClient();
         const personImagePart = dataUrlToGenerativePart(personImageUrl);
         const dressImagePart = await fileToGenerativePart(dressFile);
         const prompt = `Your task is an **identity-preserving outfit swap and scene transformation**. This is a high-stakes task where facial accuracy is paramount.
@@ -260,7 +272,7 @@ export const dressUpImage = async (personImageUrl: string, dressFile: File): Pro
 export const generateFoodImage = async (foodName: string): Promise<string | null> => {
     try {
         const apiCall = async () => {
-            const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+            const ai = getAiClient();
             const prompt = `Generate a hyper-realistic, professional food photograph of ${foodName}, styled for a high-end culinary magazine. The image must be indistinguishable from a real photograph taken with a DSLR camera.
 
 Key requirements:
@@ -299,7 +311,7 @@ Key requirements:
 export const generateDoraemonImage = async (): Promise<string | null> => {
   try {
     const apiCall = async () => {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+      const ai = getAiClient();
       const prompt = `Generate a hyper-realistic, 3D cinematic render of Doraemon in a futuristic, sleek, modern kitchen with cool blue ambient lighting. Doraemon is standing happily, looking at the camera. In front of him is a glowing blue neon grid on the floor, like a futuristic carpet, where delicious food items like sushi, burgers, and tempura are displayed. The style should be high-detail, photorealistic, and visually stunning.`;
 
       const response = await ai.models.generateContent({
@@ -332,7 +344,7 @@ export const createCouplePhotoshoot = async (
   pratikshaImageFile: File
 ): Promise<string[] | null> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+    const ai = getAiClient();
 
     const girishImagePart = await fileToGenerativePart(girishImageFile);
     const pratikshaImagePart = await fileToGenerativePart(pratikshaImageFile);
