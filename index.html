@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday Pratiksha 💖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Great+Vibes&family=Sacramento&display=swap" rel="stylesheet">
+    <style>
+      html, body, button, a, [role="button"], input, textarea, select {
+        /* Animated cursor is handled via JS, hide the default one */
+        cursor: none;
+      }
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #FFDAB9; /* Soft Peach Fallback */
+      }
+      .font-romantic {
+        font-family: 'Great Vibes', cursive;
+      }
+      .font-elegant {
+        font-family: 'Sacramento', cursive;
+      }
+      
+      /* Custom Animations */
+      @keyframes floatUp {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-150vh) rotate(360deg); opacity: 0; }
+      }
+      @keyframes driftDown {
+        0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(110vh) translateX(5vw) rotate(360deg); opacity: 1; }
+      }
+      @keyframes glow {
+        0%, 100% { box-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FF8C00; }
+        50% { box-shadow: 0 0 20px #FFD700, 0 0 30px #FF8C00, 0 0 40px #FF6347; }
+      }
+      @keyframes beat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+      }
+       @keyframes fadeInWord {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes popIn {
+        0% { opacity: 0; transform: scale(0.5); }
+        80% { opacity: 1; transform: scale(1.1); }
+        100% { opacity: 1; transform: scale(1); }
+      }
+      @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+      }
+      @keyframes confetti-burst {
+        0% {
+          transform: translate(0, 0) rotate(0deg) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--tx, 0), var(--ty, 0)) rotate(720deg) scale(0);
+          opacity: 0;
+        }
+      }
+      @keyframes sway {
+        0%, 100% { transform: rotate(-5deg); }
+        50% { transform: rotate(5deg); }
+      }
+      @keyframes lid-open {
+        0% { transform: translateY(0) rotateX(0deg); }
+        100% { transform: translateY(-100%) rotateX(90deg); }
+      }
+      @keyframes gift-reveal {
+          0% { transform: translateY(20%) scale(0.5); opacity: 0; }
+          100% { transform: translateY(0) scale(1); opacity: 1; }
+      }
+      @keyframes firework-text {
+        0%, 100% {
+          text-shadow: 0 0 4px #fff, 0 0 10px #fff, 0 0 18px #fca5a5, 0 0 28px #fca5a5;
+          color: #fff;
+        }
+        50% {
+          text-shadow: 0 0 8px #fff, 0 0 18px #fca5a5, 0 0 28px #fca5a5, 0 0 40px #fca5a5;
+          color: #fecdd3;
+        }
+      }
+       @keyframes sunrise {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes shoot-up {
+        from {
+          transform: translateY(30vh);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-20vh);
+          opacity: 0;
+        }
+      }
+      @keyframes cursor-bob {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+      @keyframes cursor-sway {
+        0%, 100% { transform: rotate(-5deg); }
+        50% { transform: rotate(5deg); }
+      }
+
+      .animate-float-up { animation: floatUp linear infinite; }
+      .animate-drift-down { animation: driftDown linear infinite; }
+      .animate-glow { animation: glow 2s ease-in-out infinite; }
+      .animate-beat { animation: beat 1.5s ease-in-out infinite; }
+      .animate-fade-in { animation: fadeIn 1.5s ease-out forwards; }
+      .animate-pop-in { animation: popIn 0.8s ease-out forwards; }
+      .animate-sway { animation: sway ease-in-out infinite; }
+      .animate-cursor-bob { animation: cursor-bob 3s ease-in-out infinite; }
+      .animate-cursor-sway { animation: cursor-sway 4s ease-in-out infinite; }
+      .shimmer-effect {
+        background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+        background-size: 1000px 100%;
+        animation: shimmer 5s linear infinite;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.28.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
